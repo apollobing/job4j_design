@@ -13,32 +13,29 @@ public class SimpleArrayList<T> implements SimpleList<T> {
         container = (T[]) new Object[capacity];
     }
 
-    public T[] grow() {
-        return Arrays.copyOf(container, container.length == 0 ? 1 : container.length * 2);
+    private void grow() {
+        container = Arrays.copyOf(container, container.length == 0 ? 1 : container.length * 2);
     }
 
     @Override
     public void add(T value) {
         if (size == container.length) {
-            container = grow();
+            grow();
         }
-        container[size] = value;
-        size++;
+        container[size++] = value;
         modCount++;
     }
 
     @Override
     public T set(int index, T newValue) {
-        Objects.checkIndex(index, size);
-        T oldItem = container[index];
+        T oldItem = get(index);
         container[index] = newValue;
         return oldItem;
     }
 
     @Override
     public T remove(int index) {
-        Objects.checkIndex(index, size);
-        T removedItem = container[index];
+        T removedItem = get(index);
         System.arraycopy(
                 container,
                 index + 1,
@@ -75,10 +72,7 @@ public class SimpleArrayList<T> implements SimpleList<T> {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                while (index < container.length && container[index] == null) {
-                    index++;
-                }
-                return index < container.length;
+                return index < container.length && size != 0;
             }
 
             @Override
