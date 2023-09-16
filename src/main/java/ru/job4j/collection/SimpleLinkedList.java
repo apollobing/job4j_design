@@ -4,11 +4,10 @@ import java.util.*;
 
 public class SimpleLinkedList<E> implements SimpleLinked<E> {
 
-    private int size = 0;
-    private int modCount = 0;
+    private int size;
+    private int modCount;
     private Node<E> head;
-    private Node<E> item;
-    private int nodeCount;
+
 
     @Override
     public void add(E value) {
@@ -38,18 +37,17 @@ public class SimpleLinkedList<E> implements SimpleLinked<E> {
 
     @Override
     public Iterator<E> iterator() {
-        int expectedModCount = modCount;
-        item = head;
-        nodeCount = size;
 
         return new Iterator<>() {
+            int expectedModCount = modCount;
+            private Node<E> item = new Node<>(null, head);
 
             @Override
             public boolean hasNext() {
                 if (expectedModCount != modCount) {
                     throw new ConcurrentModificationException();
                 }
-                return size > 0 && nodeCount > 0;
+                return size > 0 && item.next != null;
             }
 
             @Override
@@ -57,9 +55,8 @@ public class SimpleLinkedList<E> implements SimpleLinked<E> {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
-                E el = item.item;
+                E el = item.next.item;
                 item = item.next;
-                nodeCount--;
                 return el;
             }
         };
