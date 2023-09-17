@@ -36,12 +36,11 @@ public class ForwardLinked<T> implements Iterable<T> {
 
     public T deleteFirst() {
         T item;
-        if (head != null) {
-            item = head.item;
-            head = head.next == null ? null : head.next;
-        } else {
+        if (head == null) {
             throw new NoSuchElementException();
         }
+        item = head.item;
+        head = head.next == null ? null : head.next;
         size--;
         modCount++;
         return item;
