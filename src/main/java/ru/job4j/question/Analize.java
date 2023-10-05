@@ -18,11 +18,10 @@ public class Analize {
             currMap.put(u.getId(), u.getName());
         }
         for (User u : current) {
-            if (prevMap.get(u.getId()) == null) {
+            int key = u.getId();
+            if (prevMap.get(key) == null) {
                 hasDifference.setAdded();
-            }
-            if (prevMap.get(u.getId()) != null
-                    && !Objects.equals(prevMap.get(u.getId()), u.getName())) {
+            } else if (!Objects.equals(prevMap.get(key), u.getName())) {
                 hasDifference.setChanged();
             }
         }
