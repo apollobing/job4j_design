@@ -19,9 +19,9 @@ public class Config {
     public void load() throws IllegalArgumentException {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
             read.lines()
-                    .filter(line -> line.split("=", 2).length == 2
-                            && !line.split("=", 2)[0].isEmpty()
-                            && !line.split("=", 2)[1].isEmpty())
+                    .filter(line -> line.contains("=")
+                            && !line.startsWith("=")
+                            && line.indexOf("=") != line.length() - 1)
                     .forEach(line -> values.put(line.split("=", 2)[0], line.split("=", 2)[1]));
             if (values.isEmpty()) {
                 throw new IllegalArgumentException("Property file doesn't contain correct keys=values");
