@@ -18,16 +18,9 @@ public class Config {
 
     public void load() throws IllegalArgumentException {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            String[] strings = toString().split(System.lineSeparator());
-            for (String line : strings) {
-                if (line.startsWith("=")
-                        || line.contains("=") && line.indexOf("=") == line.length() - 1
-                        || !line.isEmpty() && !line.contains("=") && !line.startsWith("#")) {
-                    throw new IllegalArgumentException("\"" + line + "\"" + " the template of the line isn't like \"key=value\"");
-                }
-            }
             read.lines()
                     .filter(line -> !line.isEmpty() && !line.startsWith("#"))
+                    .filter(this::correctLine)
                     .forEach(line -> {
                         String[] keyValue = line.split("=", 2);
                         values.put(keyValue[0], keyValue[1]);
@@ -35,6 +28,15 @@ public class Config {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private boolean correctLine(String line) {
+        if (line.startsWith("=")
+                || line.contains("=") && line.indexOf("=") == line.length() - 1
+                || !line.contains("=")) {
+            throw new IllegalArgumentException(String.format("\"%s\"%s", line, " the template of the line isn't like \"key=value\""));
+        }
+        return true;
     }
 
     public String value(String key) {
