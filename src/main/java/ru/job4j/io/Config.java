@@ -18,14 +18,20 @@ public class Config {
 
     public void load() throws IllegalArgumentException {
         try (BufferedReader read = new BufferedReader(new FileReader(this.path))) {
-            read.lines()
-                    .filter(line -> line.contains("=")
-                            && !line.startsWith("=")
-                            && line.indexOf("=") != line.length() - 1)
-                    .forEach(line -> values.put(line.split("=", 2)[0], line.split("=", 2)[1]));
-            if (values.isEmpty()) {
-                throw new IllegalArgumentException("Property file doesn't contain correct keys=values");
+            String[] strings = toString().split(System.lineSeparator());
+            for (String line : strings) {
+                if (line.startsWith("=")
+                        || line.contains("=") && line.indexOf("=") == line.length() - 1
+                        || !line.isEmpty() && !line.contains("=") && !line.startsWith("#")) {
+                    throw new IllegalArgumentException("\"" + line + "\"" + " the template of the line isn't like \"key=value\"");
+                }
             }
+            read.lines()
+                    .filter(line -> !line.isEmpty() && !line.startsWith("#"))
+                    .forEach(line -> {
+                        String[] keyValue = line.split("=", 2);
+                        values.put(keyValue[0], keyValue[1]);
+                    });
         } catch (IOException e) {
             e.printStackTrace();
         }

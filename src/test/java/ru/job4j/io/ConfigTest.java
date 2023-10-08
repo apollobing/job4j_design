@@ -23,15 +23,46 @@ class ConfigTest {
         config.load();
         assertThat(config.value("Idea")).isEqualTo("2023");
         assertThat(config.value("Java")).isEqualTo("17");
+        assertThat(config.value("         ")).isEqualTo("         ");
     }
 
     @Test
-    void whenPairIncorrect() {
-        String path = "./data/pair_incorrect.properties";
+    void whenPairIncorrectStartsWithEqualsSign() {
+        String path = "./data/pair_incorrect_starts_with_equals_sign.properties";
         Config config = new Config(path);
         IllegalArgumentException exception = assertThrows(
                 IllegalArgumentException.class,
                 config::load);
-        assertThat(exception.getMessage()).isEqualTo("Property file doesn't contain correct keys=values");
+        assertThat(exception.getMessage()).isEqualTo("\"=value\" the template of the line isn't like \"key=value\"");
+    }
+
+    @Test
+    void whenPairIncorrectEndsWithEqualsSign() {
+        String path = "./data/pair_incorrect_ends_with_equals_sign.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                config::load);
+        assertThat(exception.getMessage()).isEqualTo("\"key=\" the template of the line isn't like \"key=value\"");
+    }
+
+    @Test
+    void whenPairIncorrectWithoutEqualsSign() {
+        String path = "./data/pair_incorrect_without_equals_sign.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                config::load);
+        assertThat(exception.getMessage()).isEqualTo("\"keyvalue\" the template of the line isn't like \"key=value\"");
+    }
+
+    @Test
+    void whenPairIncorrectOnlyEqualsSign() {
+        String path = "./data/pair_incorrect_only_equals_sign.properties";
+        Config config = new Config(path);
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                config::load);
+        assertThat(exception.getMessage()).isEqualTo("\"=\" the template of the line isn't like \"key=value\"");
     }
 }
