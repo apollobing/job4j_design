@@ -31,10 +31,10 @@ public class Config {
     }
 
     private boolean correctLine(String line) {
-        if (line.startsWith("=")
-                || line.contains("=") && line.indexOf("=") == line.length() - 1
-                || !line.contains("=")) {
-            throw new IllegalArgumentException(String.format("\"%s\"%s", line, " the template of the line isn't like \"key=value\""));
+        if (!line.contains("=")
+                || line.startsWith("=")
+                || line.indexOf("=") == line.length() - 1) {
+            throw new IllegalArgumentException(String.format("\"%s\" the template of the line isn't like \"key=value\"", line));
         }
         return true;
     }
