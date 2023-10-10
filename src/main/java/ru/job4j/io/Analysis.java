@@ -13,9 +13,7 @@ public class Analysis {
                 boolean available = line.startsWith("200") || line.startsWith("300");
                 String time = line.split(" ")[1];
                 if (alive != available) {
-                    writer.write(!available
-                            ? String.format("%s;", time)
-                            : String.format("%s;%s", time, System.lineSeparator()));
+                    writer.append(time).append(";").append(available ? System.lineSeparator() : "");
                     alive = !alive;
                 }
                 line = reader.readLine();
