@@ -3,26 +3,23 @@ package ru.job4j.io;
 import java.io.*;
 
 public class Analysis {
-    boolean alive = true;
 
     public void unavailable(String source, String target) {
         try (BufferedReader reader = new BufferedReader(new FileReader(source));
              BufferedWriter writer = new BufferedWriter(new FileWriter(target))) {
-            final StringBuilder st = new StringBuilder();
-            reader.lines()
-                    .forEach(line -> {
-                        boolean available = line.startsWith("200") || line.startsWith("300");
-                        String time = line.split(" ")[1];
-                        if (alive && !available) {
-                            st.append(time).append(";");
-                            alive = false;
-                        }
-                        if (!alive && available) {
-                            st.append(time).append(";").append(System.lineSeparator());
-                            alive = true;
-                        }
-                    });
-            writer.write(st.toString());
+            boolean alive = true;
+            String line = reader.readLine();
+            while (line != null) {
+                boolean available = line.startsWith("200") || line.startsWith("300");
+                String time = line.split(" ")[1];
+                if (alive != available) {
+                    writer.write(!available
+                            ? String.format("%s;", time)
+                            : String.format("%s;%s", time, System.lineSeparator()));
+                    alive = !alive;
+                }
+                line = reader.readLine();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
