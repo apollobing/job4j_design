@@ -33,7 +33,7 @@ public class Zip {
         }
     }
 
-    private static void validation(String location, String fileExtension, String archive) {
+    private void validation(String location, String fileExtension, String archive) {
         Path path = Paths.get(location);
         if (!path.toFile().exists()) {
             throw new IllegalArgumentException(
@@ -50,7 +50,7 @@ public class Zip {
                     String.format("Not file extension \"%s\"", fileExtension)
             );
         }
-        if (fileExtension.endsWith(".zip")) {
+        if (!archive.endsWith(".zip")) {
             throw new IllegalArgumentException(
                     String.format("Not zip archive \"%s\"", archive)
             );
@@ -67,7 +67,7 @@ public class Zip {
             throw new IllegalArgumentException("3 arguments not passed to program");
         }
         ArgsName parseArgs = ArgsName.of(args);
-        validation(parseArgs.get("d"), parseArgs.get("e"), parseArgs.get("o"));
+        zip.validation(parseArgs.get("d"), parseArgs.get("e"), parseArgs.get("o"));
         zip.packFiles(
                 Search.search(Paths.get(parseArgs.get("d")),
                         p -> !p.toFile().getName().endsWith(parseArgs.get("e"))),
