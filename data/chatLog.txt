@@ -1,0 +1,17 @@
+Chat started
+Your message: ������!
+Bot answer: Spring is warm.
+Your message: ��� ��?
+Bot answer: Winter is cold.
+Your message: ����
+Bot is inactive
+Your message: �� �����?
+Your message: ��� ��?
+Your message: ����������
+Bot is active
+Your message: ��?
+Bot answer: Autumn is wet.
+Your message: ��� ����������?
+Bot answer: Bye, see you!
+Your message: ���������
+Chat ended

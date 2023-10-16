@@ -1,0 +1,10 @@
+Hello, my friend!
+Winter is cold.
+Spring is warm.
+Summer is hot.
+Autumn is wet.
+Sun looks big.
+Moon is dark.
+Bye, see you!
+Sky is blue.
+Java is cool.
