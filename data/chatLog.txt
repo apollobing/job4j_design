@@ -1,17 +1,19 @@
 Chat started
-Your message: пїЅпїЅпїЅпїЅпїЅпїЅ!
-Bot answer: Spring is warm.
-Your message: пїЅпїЅпїЅ пїЅпїЅ?
-Bot answer: Winter is cold.
-Your message: пїЅпїЅпїЅпїЅ
-Bot is inactive
-Your message: пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ?
-Your message: пїЅпїЅпїЅ пїЅпїЅ?
-Your message: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-Bot is active
-Your message: пїЅпїЅ?
-Bot answer: Autumn is wet.
-Your message: пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?
+Your message: Привет!
 Bot answer: Bye, see you!
-Your message: пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+Your message: Как дела?
+Bot answer: Winter is cold.
+Your message: стоп
+Bot is inactive
+Your message: Ты тут?
+Your message: Куда пропал?
+Your message: продолжить
+Bot is active
+Your message: Ауууу
+Bot answer: Autumn is wet.
+Your message: Как настроение?
+Bot answer: Sun looks big.
+Your message: завершить
+Bot answer: Bye, see you!
+Your message: закончить
 Chat ended

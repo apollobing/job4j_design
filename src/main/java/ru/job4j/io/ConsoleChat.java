@@ -28,22 +28,22 @@ public class ConsoleChat {
         boolean botActive = true;
         System.out.println("Chat started");
         messages.add("Chat started" + System.lineSeparator());
-        while (!userInput.equals(OUT)) {
+        while (!OUT.equals(userInput)) {
             System.out.print("Your message: ");
             userInput = scanner.nextLine();
             messages.add("Your message: " + userInput + System.lineSeparator());
-            if (userInput.equals(STOP)) {
+            if (STOP.equals(userInput)) {
                 botActive = false;
                 messages.add("Bot is inactive" + System.lineSeparator());
                 System.out.println("Bot is inactive");
             }
-            if (userInput.equals(CONTINUE)) {
+            if (CONTINUE.equals(userInput)) {
                 botActive = true;
                 messages.add("Bot is active" + System.lineSeparator());
                 System.out.println("Bot is active");
                 continue;
             }
-            if (botActive && !userInput.equals(OUT)) {
+            if (botActive && !OUT.equals(userInput)) {
                 String botAnswer = phrases.get(rand.nextInt(phrases.size()));
                 messages.add("Bot answer: " + botAnswer);
                 System.out.print("Bot answer: " + botAnswer);
