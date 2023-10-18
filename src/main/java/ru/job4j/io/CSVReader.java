@@ -28,7 +28,7 @@ public class CSVReader {
                             : data.get(p) + argsName.get("delimiter"));
                 }
             }
-            if (argsName.get("out").equals("stdout")) {
+            if ("stdout".equals(argsName.get("out"))) {
                 System.out.println(sb);
             } else {
                 try (PrintWriter pw = new PrintWriter(new FileWriter(argsName.get("out")))) {
