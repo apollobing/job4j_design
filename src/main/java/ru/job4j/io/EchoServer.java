@@ -17,12 +17,10 @@ public class EchoServer {
                     String msg = in.readLine().split(" ")[1];
                     if ("/?msg=Hello".equals(msg)) {
                         out.write("Hello".getBytes());
-                    }
-                    if ("/?msg=Exit".equals(msg)) {
+                    } else if ("/?msg=Exit".equals(msg)) {
                         out.write("Завершить работу сервера.".getBytes(Charset.forName("WINDOWS-1251")));
                         server.close();
-                    }
-                    if (!"/?msg=Hello".equals(msg) && !"/?msg=Exit".equals(msg)) {
+                    } else {
                         out.write("What".getBytes());
                     }
                     out.flush();
