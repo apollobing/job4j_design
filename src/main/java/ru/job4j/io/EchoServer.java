@@ -3,7 +3,6 @@ package ru.job4j.io;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.charset.Charset;
 
 public class EchoServer {
     public static void main(String[] args) throws IOException {
@@ -14,24 +13,9 @@ public class EchoServer {
                      BufferedReader in = new BufferedReader(
                              new InputStreamReader(socket.getInputStream()))) {
                     out.write("HTTP/1.1 200 OK\r\n\r\n".getBytes());
-                    boolean isFirstLine = true;
-                    for (String str = in.readLine(); str != null && !str.isEmpty(); str = in.readLine()) {
-                        System.out.println(str);
-                        String path = "";
-                        if (isFirstLine) {
-                            path = str.split(" ")[1];
-                            isFirstLine = false;
-                        }
-                        if ("/?msg=Hello".equals(path)) {
-                            out.write("Hello".getBytes());
-                        }
-                        if ("/?msg=Exit".equals(path)) {
-                            out.write("Завершить работу сервера.".getBytes(Charset.forName("WINDOWS-1251")));
-                            server.close();
-                        }
-                        if (!path.isBlank() && !"/?msg=Hello".equals(path) && !"/?msg=Exit".equals(path)) {
-                            out.write("What".getBytes());
-                        }
+                    String msg = in.readLine().split(" ")[1];
+                    if ("/?msg=Bye".equals(msg)) {
+                        server.close();
                     }
                     out.flush();
                 }
