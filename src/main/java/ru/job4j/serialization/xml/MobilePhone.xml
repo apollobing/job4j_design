@@ -1,6 +1,6 @@
 <?xml version="1.1" encoding="UTF-8" ?>
-<phone model="iPhone 15" support5g="false" memory="512GB" >
-    <camera megapixels="48 MP"/>
+<phone model="iPhone 15" support5g="false" memory="512" >
+    <camera megapixels="48"/>
     <features>
         <feature>Face ID</feature>
         <feature>Barometer</feature>
