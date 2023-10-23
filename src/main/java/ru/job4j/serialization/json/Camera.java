@@ -13,4 +13,8 @@ public class Camera {
                 + "megapixels='" + megapixels + " MP" + '\''
                 + '}';
     }
+
+    public int getMegapixels() {
+        return megapixels;
+    }
 }
