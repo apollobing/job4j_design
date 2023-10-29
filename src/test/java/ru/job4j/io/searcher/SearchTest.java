@@ -11,7 +11,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class SearchTest {
 
     @Test
-    void getNamesEven(@TempDir Path tempDir) throws IOException {
+    void getName(@TempDir Path tempDir) throws IOException {
         File file1 = tempDir.resolve("even.txt").toFile();
         try (PrintWriter out = new PrintWriter(file1)) {
             out.println("Java");
@@ -34,7 +34,30 @@ class SearchTest {
     }
 
     @Test
-    void getTemplateRegex(@TempDir Path tempDir) throws IOException {
+    void getMask(@TempDir Path tempDir) throws IOException {
+        File file1 = tempDir.resolve("log.txt").toFile();
+        try (PrintWriter out = new PrintWriter(file1)) {
+            out.println("Some");
+        }
+        File file2 = tempDir.resolve("another.txt").toFile();
+        try (PrintWriter out = new PrintWriter(file2)) {
+            out.println("Word");
+        }
+        File target = tempDir.resolve("files.txt").toFile();
+
+        String[] input = {"-d=" + tempDir, "-n=*.?x?", "-t=mask", "-o=" + target.getAbsolutePath()};
+
+        Search.run(input);
+
+        StringBuilder rsl = new StringBuilder();
+        try (BufferedReader in = new BufferedReader(new FileReader(target))) {
+            in.lines().forEach(rsl::append);
+        }
+        assertThat(rsl.toString()).contains("log.txt").contains("another.txt");
+    }
+
+    @Test
+    void getRegex(@TempDir Path tempDir) throws IOException {
         File file1 = tempDir.resolve("log.txt").toFile();
         try (PrintWriter out = new PrintWriter(file1)) {
             out.println("Maven");
@@ -45,7 +68,7 @@ class SearchTest {
         }
         File target = tempDir.resolve("files.txt").toFile();
 
-        String[] input = {"-d=" + tempDir, "-n=^\\w{3}\\.\\w+$", "-t=mask", "-o=" + target.getAbsolutePath()};
+        String[] input = {"-d=" + tempDir, "-n=^\\w{3}\\.\\w+$", "-t=regex", "-o=" + target.getAbsolutePath()};
 
         Search.run(input);
 

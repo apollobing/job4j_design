@@ -29,8 +29,13 @@ public class Search {
         String output = parseArgs.get("o");
         validation(dir, template, type, output);
         Path start = Paths.get(dir);
-        if ("mask".equals(type)) {
+        if ("regex".equals(type)) {
             Pattern pattern = Pattern.compile(template);
+            search(start, p -> pattern.matcher(p.toFile().getName()).matches(), output);
+        } else if ("mask".equals(type)) {
+            String mask = template.replace("*", "^.+\\")
+                    .replace("?", ".");
+            Pattern pattern = Pattern.compile(mask);
             search(start, p -> pattern.matcher(p.toFile().getName()).matches(), output);
         } else {
             search(start, p -> p.toFile().getName().contains(template), output);
@@ -54,14 +59,27 @@ public class Search {
                     String.format("Not directory \"%s\"", path.toAbsolutePath())
             );
         }
-        if (template.length() < 3) {
+        if ("mask".equals(type) && (!template.contains(".")
+                || !template.contains("*") && !template.contains("?"))) {
             throw new IllegalArgumentException(
-                    String.format("Template \"%s\" contains less than 3 symbols", template)
+                    String.format(
+                            "Mask \"%s\" should contain \".\" and both or one of \"*\", \"?\"",
+                            template)
             );
         }
-        if (!"name".equals(type) && !"mask".equals(type)) {
+        if ("regex".equals(type) && !template.contains("\\")) {
             throw new IllegalArgumentException(
-                    String.format("\"%s\" not \"name\" or \"mask\"", type)
+                    String.format("Regex \"%s\" should contain \"\\\"", template)
+            );
+        }
+        if ("name".equals(type) && template.length() < 2) {
+            throw new IllegalArgumentException(
+                    String.format("Name \"%s\" contains less than 2 symbols", template)
+            );
+        }
+        if (!"name".equals(type) && !"mask".equals(type) && !"regex".equals(type)) {
+            throw new IllegalArgumentException(
+                    String.format("\"%s\" not \"name\" or \"mask\" or \"regex\"", type)
             );
         }
         if (!output.endsWith(".txt")) {
