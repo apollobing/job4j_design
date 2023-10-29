@@ -1,10 +1,13 @@
 package ru.job4j.io.searcher;
 
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Scanner;
+import java.util.List;
 import java.util.function.Predicate;
 import java.util.regex.Pattern;
 
@@ -43,8 +46,17 @@ public class Search {
     }
 
     public static void search(Path root, Predicate<Path> condition, String output) throws IOException {
-        SearchFiles searcher = new SearchFiles(condition, output);
+        SearchFiles searcher = new SearchFiles(condition);
         Files.walkFileTree(root, searcher);
+        write(searcher.getPaths(), output);
+    }
+
+    private static void write(List<Path> files, String output) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(output, Charset.forName("WINDOWS-1251"), true))) {
+            files.forEach(pw::println);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void validation(String dir, String template, String type, String output) {
@@ -90,10 +102,6 @@ public class Search {
     }
 
     public static void main(String[] args) throws IOException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please use 4 arguments: ");
-        String[] params = scanner.nextLine().split(" ");
-        scanner.close();
-        run(params);
+        run(args);
     }
 }

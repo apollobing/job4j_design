@@ -1,34 +1,31 @@
 package ru.job4j.io.searcher;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.Charset;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Path;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 import static java.nio.file.FileVisitResult.CONTINUE;
 
 public class SearchFiles extends SimpleFileVisitor<Path> {
     private Predicate<Path> condition;
-    private String output;
+    private List<Path> files = new ArrayList<>();
 
-    public SearchFiles(Predicate<Path> condition, String output) {
+    public SearchFiles(Predicate<Path> condition) {
         this.condition = condition;
-        this.output = output;
+    }
+
+    public List<Path> getPaths() {
+        return files;
     }
 
     @Override
     public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) {
         if (condition.test(file)) {
-            try (PrintWriter pw = new PrintWriter(new FileWriter(output, Charset.forName("WINDOWS-1251"), true))) {
-                pw.println(file.toAbsolutePath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            files.add(file.toAbsolutePath());
         }
         return CONTINUE;
     }
