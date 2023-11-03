@@ -63,10 +63,9 @@ select * from product where name like '%Мороженое%';
 
 select * from product p where current_date > p.expired_date;
 
-select t.name Тип, max(p.price) "Самый дорогой продукт"
-from type t
-join product p on t.id = p.type_id
-group by t.name;
+select name Продукт, price Цена
+from product
+where price = (select max(price) from product)
 
 select t.name Тип, count(*) Количество
 from type t
