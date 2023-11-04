@@ -63,5 +63,4 @@ insert into teens(name, gender) values ('Roberta', 'f');
 
 select t1.name Male, t2.name Female from teens t1
 cross join teens t2
-where t1.gender = 'm' and t2.gender = 'f'
-order by t1.name, t2.name asc;
+where t1.gender > t2.gender;
