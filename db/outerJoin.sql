@@ -61,4 +61,7 @@ insert into teens(name, gender) values ('Tim', 'm');
 insert into teens(name, gender) values ('Victor', 'm');
 insert into teens(name, gender) values ('Roberta', 'f');
 
-select t1.name Name, t2.gender Gender from teens t1 cross join teens t2;
+select t1.name Male, t2.name Female from teens t1
+cross join teens t2
+where t1.gender = 'm' and t2.gender = 'f'
+order by t1.name, t2.name asc;
