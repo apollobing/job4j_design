@@ -62,9 +62,7 @@ create or replace function price_history()
 $$
     BEGIN
         insert into history_of_price (name, price, date)
-        select name, price, current_timestamp
-        from products
-        where id = (select max(id) from products);
+        values (new.name, new.price, current_timestamp);
         return new;
     END;
 $$
