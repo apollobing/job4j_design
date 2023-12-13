@@ -19,15 +19,13 @@ class FoolTest {
                 "86", "88", "FizzBuzz", "92", "94", "Fizz", "98", "Buzz");
         Iterator<String> iterator = answers.iterator();
 
-        while (game.startAt < 100) {
+        while (game.getStartAt() < 100) {
             game.check(game);
-            game.player = true;
-            game.answer = iterator.next();
+            game.setAnswer(iterator.next());
             game.check(game);
-            game.player = false;
         }
-        assertThat(game.startAt).isEqualTo(101);
-        assertThat(game.answer).isEqualTo("Buzz");
+        assertThat(game.getStartAt()).isEqualTo(101);
+        assertThat(game.getAnswer()).isEqualTo("Buzz");
     }
 
     @Test
@@ -36,15 +34,13 @@ class FoolTest {
         List<String> answers = List.of("2", "4", "Wrong");
         Iterator<String> iterator = answers.iterator();
 
-        while (game.startAt < 6 && !iterator.hasNext()) {
+        while (game.getStartAt() < 6 && !iterator.hasNext()) {
             game.check(game);
-            game.player = true;
-            game.answer = iterator.next();
+            game.setAnswer(iterator.next());
             game.check(game);
-            game.player = false;
         }
-        assertThat(game.startAt).isEqualTo(1);
-        assertThat(game.answer).isNotEqualTo("Fizz");
+        assertThat(game.getStartAt()).isEqualTo(1);
+        assertThat(game.getAnswer()).isNotEqualTo("Fizz");
     }
 
     @Test
@@ -53,15 +49,13 @@ class FoolTest {
         List<String> answers = List.of("2", "4", "Fizz", "8", "Wrong");
         Iterator<String> iterator = answers.iterator();
 
-        while (game.startAt < 10 && !iterator.hasNext()) {
+        while (game.getStartAt() < 10 && !iterator.hasNext()) {
             game.check(game);
-            game.player = true;
-            game.answer = iterator.next();
+            game.setAnswer(iterator.next());
             game.check(game);
-            game.player = false;
         }
-        assertThat(game.startAt).isEqualTo(1);
-        assertThat(game.answer).isNotEqualTo("Buzz");
+        assertThat(game.getStartAt()).isEqualTo(1);
+        assertThat(game.getAnswer()).isNotEqualTo("Buzz");
     }
 
     @Test
@@ -71,15 +65,13 @@ class FoolTest {
                 "Fizz", "Buzz", "22", "Fizz", "26", "28", "Wrong");
         Iterator<String> iterator = answers.iterator();
 
-        while (game.startAt < 30 && !iterator.hasNext()) {
+        while (game.getStartAt() < 30 && !iterator.hasNext()) {
             game.check(game);
-            game.player = true;
-            game.answer = iterator.next();
+            game.setAnswer(iterator.next());
             game.check(game);
-            game.player = false;
         }
-        assertThat(game.startAt).isEqualTo(1);
-        assertThat(game.answer).isNotEqualTo("FizzBuzz");
+        assertThat(game.getStartAt()).isEqualTo(1);
+        assertThat(game.getAnswer()).isNotEqualTo("FizzBuzz");
     }
 
     @Test
@@ -88,14 +80,12 @@ class FoolTest {
         List<String> answers = List.of("2", "Wrong");
         Iterator<String> iterator = answers.iterator();
 
-        while (game.startAt < 4 && !iterator.hasNext()) {
+        while (game.getStartAt() < 4 && !iterator.hasNext()) {
             game.check(game);
-            game.player = true;
-            game.answer = iterator.next();
+            game.setAnswer(iterator.next());
             game.check(game);
-            game.player = false;
         }
-        assertThat(game.startAt).isEqualTo(1);
-        assertThat(game.answer).isNotEqualTo("4");
+        assertThat(game.getStartAt()).isEqualTo(1);
+        assertThat(game.getAnswer()).isNotEqualTo("4");
     }
 }
