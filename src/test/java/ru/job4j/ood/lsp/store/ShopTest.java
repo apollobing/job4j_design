@@ -8,8 +8,8 @@ import static org.assertj.core.api.Assertions.*;
 
 class ShopTest {
     @Test
-    public void whenAddToShopBananaOrangeKiwiAppleThenGetListContainsThem() {
-        AbstractStore store = new Shop();
+    public void whenAddToShopBananaOrangeKiwiAppleThenGetListOfOrangeKiwi() {
+        Store store = new Shop();
         Food banana = new Banana("banana",
                 LocalDate.of(2023, 12, 17),
                 LocalDate.of(2024, 1, 18),
@@ -34,6 +34,6 @@ class ShopTest {
         store.add(orange);
         store.add(kiwi);
         store.add(apple);
-        assertThat(store.getProducts()).containsExactly(banana, orange, kiwi, apple);
+        assertThat(store.getProducts()).containsExactly(orange, kiwi);
     }
 }

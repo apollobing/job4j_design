@@ -3,13 +3,21 @@ package ru.job4j.ood.lsp.store;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
 class ControlQualityTest {
     @Test
-    public void whenAddToWarehouseBananaToShopOrangeToShopKiwiToTrashAppleThenGetListsContainThem() {
+    public void whenAddToWarehouseBananaToShopOrangeToShopKiwiToTrashAppleThenGetListContainsThem() {
+        Store warehouse = new Warehouse();
+        Store shop = new Shop();
+        Store trash = new Trash();
+        List<Store> stores = new ArrayList<>();
+        stores.add(warehouse);
+        stores.add(shop);
+        stores.add(trash);
         ControlQuality controlQuality = new ControlQuality();
         Food banana = new Banana("banana",
                 LocalDate.of(2023, 12, 17),
@@ -31,21 +39,14 @@ class ControlQualityTest {
                 LocalDate.of(2023, 12, 16),
                 5,
                 0);
-        List<Food> warehouse = controlQuality.store(banana);
-        List<Food> shop = controlQuality.store(orange);
-        List<Food> shopDiscount = controlQuality.store(kiwi);
-        List<Food> trash = controlQuality.store(apple);
-        assertThat(warehouse).containsExactly(banana);
-        assertThat(warehouse.get(0).getCreateDate().toString()).isEqualTo(banana.getCreateDate().toString());
-        assertThat(warehouse.get(0).getPrice()).isEqualTo(banana.getPrice());
-        assertThat(shop).containsExactly(orange);
-        assertThat(shop.get(0).getExpiryDate().toString()).isEqualTo(orange.getExpiryDate().toString());
-        assertThat(shop.get(0).getPrice()).isEqualTo(orange.getPrice());
-        assertThat(shopDiscount).containsExactly(kiwi);
-        assertThat(shopDiscount.get(0).getDiscount()).isEqualTo(0.2);
-        assertThat(shopDiscount.get(0).getPrice()).isEqualTo(12);
-        assertThat(trash).containsExactly(apple);
-        assertThat(trash.get(0).getCreateDate().toString()).isEqualTo(apple.getCreateDate().toString());
-        assertThat(trash.get(0).getPrice()).isEqualTo(apple.getPrice());
+        stores = controlQuality.store(banana, stores);
+        stores = controlQuality.store(orange, stores);
+        stores = controlQuality.store(kiwi, stores);
+        stores = controlQuality.store(apple, stores);
+        assertThat(stores.get(0).getProducts()).containsExactly(banana);
+        assertThat(stores.get(1).getProducts()).containsExactly(orange, kiwi);
+        assertThat(stores.get(1).getProducts().get(1).getDiscount()).isEqualTo(0.2);
+        assertThat(stores.get(1).getProducts().get(1).getPrice()).isEqualTo(12);
+        assertThat(stores.get(2).getProducts()).containsExactly(apple);
     }
 }

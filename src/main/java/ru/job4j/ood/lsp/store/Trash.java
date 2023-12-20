@@ -7,8 +7,10 @@ public class Trash extends AbstractStore {
     private List<Food> products = new ArrayList<>();
 
     @Override
-    public void add(Food food) {
-        this.products.add(food);
+    public void add(Food product) {
+        if (new ProductPeriod().get(product) >= 100) {
+            products.add(product);
+        }
     }
 
     @Override
