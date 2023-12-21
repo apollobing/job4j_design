@@ -1,20 +1,14 @@
 package ru.job4j.ood.lsp.store;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Trash extends AbstractStore {
-    private List<Food> products = new ArrayList<>();
-
     @Override
-    public void add(Food product) {
-        if (new ProductPeriod().get(product) >= 100) {
-            products.add(product);
+    public void add(List<Food> food) {
+        for (Food product : food) {
+            if (product.getProductLife() >= FULL_EXPIRED) {
+                products.add(product);
+            }
         }
-    }
-
-    @Override
-    public List<Food> getProducts() {
-        return products;
     }
 }

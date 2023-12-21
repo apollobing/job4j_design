@@ -8,6 +8,7 @@ public abstract class Food {
     private LocalDate expiryDate;
     private double price;
     private double discount;
+    private double productLife;
 
     public Food(String name, LocalDate createDate, LocalDate expiryDate, double price, int discount) {
         this.name = name;
@@ -55,5 +56,13 @@ public abstract class Food {
 
     public void setDiscount(double discount) {
         this.discount = discount;
+    }
+
+    public double getProductLife() {
+        return productLife;
+    }
+
+    public void setProductLife(double productLife) {
+        this.productLife = productLife;
     }
 }

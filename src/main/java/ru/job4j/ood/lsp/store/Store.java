@@ -3,7 +3,7 @@ package ru.job4j.ood.lsp.store;
 import java.util.List;
 
 public interface Store {
-    void add(Food food);
+    void add(List<Food> food);
 
     List<Food> getProducts();
 }

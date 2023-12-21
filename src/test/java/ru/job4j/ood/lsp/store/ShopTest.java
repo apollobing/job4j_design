@@ -3,6 +3,8 @@ package ru.job4j.ood.lsp.store;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -30,10 +32,13 @@ class ShopTest {
                 LocalDate.of(2023, 12, 16),
                 5,
                 0);
-        store.add(banana);
-        store.add(orange);
-        store.add(kiwi);
-        store.add(apple);
+        List<Food> products = new ArrayList<>();
+        products.add(banana);
+        products.add(orange);
+        products.add(kiwi);
+        products.add(apple);
+        products = new ProductPeriod().get(products, LocalDate.of(2023, 12, 19));
+        store.add(products);
         assertThat(store.getProducts()).containsExactly(orange, kiwi);
     }
 }

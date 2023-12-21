@@ -39,10 +39,12 @@ class ControlQualityTest {
                 LocalDate.of(2023, 12, 16),
                 5,
                 0);
-        stores = controlQuality.store(banana, stores);
-        stores = controlQuality.store(orange, stores);
-        stores = controlQuality.store(kiwi, stores);
-        stores = controlQuality.store(apple, stores);
+        List<Food> products = new ArrayList<>();
+        products.add(banana);
+        products.add(orange);
+        products.add(kiwi);
+        products.add(apple);
+        stores = controlQuality.store(products, stores, LocalDate.of(2023, 12, 19));
         assertThat(stores.get(0).getProducts()).containsExactly(banana);
         assertThat(stores.get(1).getProducts()).containsExactly(orange, kiwi);
         assertThat(stores.get(1).getProducts().get(1).getDiscount()).isEqualTo(0.2);
