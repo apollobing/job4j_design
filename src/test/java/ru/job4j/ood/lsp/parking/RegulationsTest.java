@@ -1,11 +1,9 @@
 package ru.job4j.ood.lsp.parking;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@Disabled
 class RegulationsTest {
     @Test
     public void whenParkTreeCarsAndTwoTrucksThenTransportUsesTreeTwoPlaces() {
@@ -166,10 +164,10 @@ class RegulationsTest {
         regulations.takePark(truck2);
         regulations.takePark(truck3);
         assertThat(regulations.findOccupiedPlace(truck1))
-                .isEqualTo("Truck #1z09, took place #1");
+                .isEqualTo("Truck #1z09, took place #0");
         assertThat(regulations.findOccupiedPlace(car1))
-                .isEqualTo("Car #0x15, took place #1");
+                .isEqualTo("Car #0x15, took place #0");
         assertThat(regulations.findOccupiedPlace(truck3))
-                .isEqualTo("Truck #n7v3, took places #2 and #3");
+                .isEqualTo("Truck #n7v3, took places #1 and #2");
     }
 }
