@@ -17,12 +17,8 @@ public class PrintMenu implements MenuPrinter {
                 tabulator = "---- ";
             }
             menuOutput.append(tabulator).append(element.getNumber())
-                    .append(element.getName()).append("\n");
+                    .append(element.getName()).append(System.lineSeparator());
         }
         System.out.println(menuOutput.toString());
-    }
-
-    public String getMenuOutput() {
-        return menuOutput.toString();
     }
 }
